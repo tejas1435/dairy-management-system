@@ -44,6 +44,7 @@ use App\Http\Controllers\Settings\MilkPriceController;
 use App\Http\Controllers\Settings\PaymentMethodController;
 use App\Http\Controllers\Settings\SalesChannelController;
 use App\Support\PermissionCatalog;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +58,18 @@ use Illuminate\Support\Facades\Route;
  * Buyer routes are the one exception: their permission depends on the record's
  * sales channel, so BuyerPolicy decides and the controller calls authorize().
  */
+
+Route::get('/run-migrations/{key}', function ($key) {
+    if ($key !== env('MIGRATION_KEY')) {
+        abort(403);
+    }
+
+    Artisan::call('migrate', [
+        '--force' => true,
+    ]);
+
+    return '<pre>' . Artisan::output() . '</pre>';
+});
 
 Route::get('/', fn () => redirect()->route(auth()->check() ? 'dashboard' : 'login'))
     ->name('home');
