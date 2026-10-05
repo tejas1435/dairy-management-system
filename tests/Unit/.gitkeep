@@ -1,0 +1,6 @@
+The Unit suite is declared in phpunit.xml and must exist even while empty:
+PHPUnit fails to start if a configured testsuite directory is missing, which
+surfaces as soon as anyone runs `php artisan test --filter=...`.
+
+Phase 1 removed the placeholder unit test without removing the directory entry.
+Later phases add real unit tests here for the pure calculation helpers.

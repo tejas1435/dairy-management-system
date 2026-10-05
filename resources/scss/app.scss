@@ -1,0 +1,43 @@
+// Application stylesheet.
+//
+// Bootstrap is configured through `@use ... with` rather than `@import` so this
+// file stays compatible with Dart Sass 3.0, which removes `@import` entirely.
+//
+// The application is a compact professional business dashboard (MASTER_SPEC
+// section 4), so these overrides tighten Bootstrap's spacing and type scale
+// rather than enlarging them. Each one exists to make dense data entry and
+// long tables readable, not for decoration.
+
+@use "bootstrap/scss/bootstrap" with (
+    // 15px base keeps wide tables - the Customer Daily Entry grid above all -
+    // on screen without horizontal scrolling on a laptop.
+    $font-size-base: 0.9375rem,
+    $line-height-base: 1.5,
+
+    $border-radius: 0.375rem,
+    $border-radius-sm: 0.25rem,
+
+    // Compact controls and cells for fast repetitive entry.
+    $input-btn-padding-y-sm: 0.2rem,
+    $input-btn-padding-x-sm: 0.5rem,
+    $table-cell-padding-y: 0.5rem,
+    $table-cell-padding-x: 0.5rem,
+
+    // Visible focus is an accessibility requirement (section 77), so the focus
+    // ring keeps full strength instead of being softened.
+    $focus-ring-width: 0.2rem,
+    $focus-ring-opacity: 0.3
+);
+
+// Bootstrap Icons. Vite resolves the font files and emits them into the build
+// output, so no CDN is required (MASTER_SPEC section 3).
+@use "bootstrap-icons/font/bootstrap-icons" with (
+    // Point the @font-face rules at the package's own font files so Vite can
+    // resolve, hash and emit them. Without this the default "./fonts" path
+    // resolves relative to the built CSS, where no fonts exist, and every icon
+    // renders as an empty box.
+    $bootstrap-icons-font-dir: "bootstrap-icons/font/fonts"
+);
+
+// Application shell: sidebar, topbar, navigation and shared layout helpers.
+@use "shell";
