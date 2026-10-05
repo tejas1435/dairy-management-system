@@ -14,15 +14,10 @@ RUN npm run build
 
 RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache || true
 
-COPY docker/entrypoint.sh /usr/local/bin/laravel-entrypoint
-
-RUN chmod +x /usr/local/bin/laravel-entrypoint
-
 ENV WEBROOT=/var/www/html/public
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV LOG_CHANNEL=stderr
+ENV RUN_SCRIPTS=1
 
 EXPOSE 80
-
-CMD ["/usr/local/bin/laravel-entrypoint"]
