@@ -18,6 +18,5 @@ ENV WEBROOT=/var/www/html/public
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV LOG_CHANNEL=stderr
-ENV RUN_SCRIPTS=1
 
 EXPOSE 80
