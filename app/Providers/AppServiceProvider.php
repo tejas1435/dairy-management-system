@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -60,6 +61,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerMorphMap();
+
+        Schema::defaultStringLength(191);
 
         /*
          * Laravel's paginator renders Tailwind markup by default, which this

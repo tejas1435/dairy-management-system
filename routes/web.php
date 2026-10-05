@@ -45,8 +45,8 @@ use App\Http\Controllers\Settings\PaymentMethodController;
 use App\Http\Controllers\Settings\SalesChannelController;
 use App\Support\PermissionCatalog;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 /*
  * There is deliberately no registration route. Accounts are created by an
