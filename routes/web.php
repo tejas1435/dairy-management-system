@@ -46,6 +46,7 @@ use App\Http\Controllers\Settings\SalesChannelController;
 use App\Support\PermissionCatalog;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
  * There is deliberately no registration route. Accounts are created by an
@@ -58,6 +59,32 @@ use Illuminate\Support\Facades\Route;
  * Buyer routes are the one exception: their permission depends on the record's
  * sales channel, so BuyerPolicy decides and the controller calls authorize().
  */
+
+Route::get('/db-test/{key}', function ($key) {
+    if ($key !== env('MIGRATION_KEY')) {
+        abort(403);
+    }
+
+    try {
+        DB::connection()->getPdo();
+
+        $database = DB::connection()->getDatabaseName();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Database connected successfully',
+            'database' => $database,
+        ]);
+
+    } catch (\Throwable $e) {
+
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage(),
+            'type' => get_class($e),
+        ], 500);
+    }
+});
 
 Route::get('/run-migrations/{key}', function ($key) {
     if ($key !== env('MIGRATION_KEY')) {
