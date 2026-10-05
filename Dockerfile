@@ -9,6 +9,9 @@ RUN composer install \
     --optimize-autoloader \
     --no-interaction
 
+RUN npm install
+RUN npm run build
+
 RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache || true
 
 ENV WEBROOT=/var/www/html/public
