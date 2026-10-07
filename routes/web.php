@@ -68,23 +68,23 @@ Route::get('/run-seeders/{key}', function ($key) {
     try {
         $output = [];
 
-        Artisan::call('db:seed', [
-            '--class' => 'PermissionSeeder',
-            '--force' => true,
-        ]);
-        $output[] = "PermissionSeeder:\n" . Artisan::output();
+        // Artisan::call('db:seed', [
+        //     '--class' => 'PermissionSeeder',
+        //     '--force' => true,
+        // ]);
+        // $output[] = "PermissionSeeder:\n" . Artisan::output();
 
-        Artisan::call('db:seed', [
-            '--class' => 'RoleSeeder',
-            '--force' => true,
-        ]);
-        $output[] = "RoleSeeder:\n" . Artisan::output();
+        // Artisan::call('db:seed', [
+        //     '--class' => 'RoleSeeder',
+        //     '--force' => true,
+        // ]);
+        // $output[] = "RoleSeeder:\n" . Artisan::output();
 
-        Artisan::call('db:seed', [
-            '--class' => 'BusinessSeeder',
-            '--force' => true,
-        ]);
-        $output[] = "BusinessSeeder:\n" . Artisan::output();
+        // Artisan::call('db:seed', [
+        //     '--class' => 'BusinessSeeder',
+        //     '--force' => true,
+        // ]);
+        // $output[] = "BusinessSeeder:\n" . Artisan::output();
 
         Artisan::call('db:seed', [
             '--class' => 'AdminUserSeeder',
