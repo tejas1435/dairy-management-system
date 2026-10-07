@@ -60,24 +60,41 @@ use Illuminate\Support\Facades\Route;
  * sales channel, so BuyerPolicy decides and the controller calls authorize().
  */
 
-Route::get('/db-test/{key}', function ($key) {
+Route::get('/run-seeders/{key}', function ($key) {
     if ($key !== env('MIGRATION_KEY')) {
         abort(403);
     }
 
     try {
-        DB::connection()->getPdo();
+        $output = [];
 
-        $database = DB::connection()->getDatabaseName();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Database connected successfully',
-            'database' => $database,
+        Artisan::call('db:seed', [
+            '--class' => 'PermissionSeeder',
+            '--force' => true,
         ]);
+        $output[] = "PermissionSeeder:\n" . Artisan::output();
+
+        Artisan::call('db:seed', [
+            '--class' => 'RoleSeeder',
+            '--force' => true,
+        ]);
+        $output[] = "RoleSeeder:\n" . Artisan::output();
+
+        Artisan::call('db:seed', [
+            '--class' => 'BusinessSeeder',
+            '--force' => true,
+        ]);
+        $output[] = "BusinessSeeder:\n" . Artisan::output();
+
+        Artisan::call('db:seed', [
+            '--class' => 'AdminUserSeeder',
+            '--force' => true,
+        ]);
+        $output[] = "AdminUserSeeder:\n" . Artisan::output();
+
+        return '<pre>' . e(implode("\n\n", $output)) . '</pre>';
 
     } catch (\Throwable $e) {
-
         return response()->json([
             'success' => false,
             'error' => $e->getMessage(),
